@@ -68,9 +68,9 @@ current_conditions=apply(stations,1,function(x){
   print(x)
   tryCatch({
     if(x$type=='pws'){
-      cc=conditions(location=set_location(territory=x$territory,city=x$city,PWS_id = x$id),key=mykey)
+      cc=conditions(location=set_location(territory=x$state,city=x$city,PWS_id = x$id),key=mykey)
     }else if(x$type=='airport'){
-      cc=conditions(location=set_location(territory=x$territory,city=x$city,airport_code = x$id),key=mykey)
+      cc=conditions(location=set_location(territory=x$state,city=x$city,airport_code = x$id),key=mykey)
     }
     list(sta=x$id,dat=data.frame(cc))
   },error=function(e){
@@ -79,11 +79,12 @@ current_conditions=apply(stations,1,function(x){
 })
 
 # unpack the current conditions into a data frame
-ccdf=do.call(rbind,lapply(current_condtions,function(x){
+ccdf=do.call(rbind,lapply(current_conditions,function(x){
   data.frame(station=x$sta,x$dat,stringsAsFactors = F)
 }))
 ccdf
-save(ccdf,file='maricopa_test_results_08_09.RData')
+# save(ccdf,file='maricopa_test_results_08_09.RData')
+save(ccdf,file='maricopa_test_results_08_29.RData')
 
 
 #### Map Example Results ####
@@ -108,5 +109,5 @@ temps$bk=factor(temps$bk,levels=sort(unique(temps$bk)))
 ggmap(get_map('Phoenix, AZ',zoom=10,source='stamen',maptype='toner-background'))+
   geom_point(aes(lon,lat,color=bk),size=3,data=temps)+
   scale_colour_manual(values=brewer.pal(length(unique(temps$bk)),'YlOrRd'),guide=guide_legend(title='Temp (F)'))+
-  ggtitle('Phoenix Metro Afternoon Temperatures\nAugust 9, 2017')
+  ggtitle('Phoenix Metro Afternoon Temperatures\nAugust 29, 2017')
   

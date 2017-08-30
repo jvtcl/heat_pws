@@ -1,5 +1,6 @@
 # Current conditions data
 maricopa_test_results_08_09.RData
+maricopa_test_results_08_29.RData
 
 # History files
 .Rhistory
@@ -20,6 +21,7 @@ maricopa_test_results_08_09.RData
 # RStudio files
 .Rproj.user/
 .Rproj
+heat_pws.Rproj
 
 # produced vignettes
 vignettes/*.html
